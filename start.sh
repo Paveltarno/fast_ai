@@ -13,7 +13,7 @@ source ./.env
 #         --preemptible
 
 gcloud compute instances start $INSTANCE_NAME
-$SLEEP_SEC = 15
-echo "Sleeping $SLEEP_SEC before connecting"
+SLEEP_SEC=15
+echo "-> Sleeping $SLEEP_SEC seconds before connecting..."
 sleep $SLEEP_SEC
-gcloud compute ssh --zone=$ZONE jupyter@$INSTANCE_NAME -- -L 8080:localhost:8080
+gcloud compute ssh --zone=$ZONE --command="cd tutorials/fastai/course-v3 && git pull && sudo /opt/anaconda3/bin/conda install -c fastai fastai && sh" jupyter@$INSTANCE_NAME -- -L 8080:localhost:8080
